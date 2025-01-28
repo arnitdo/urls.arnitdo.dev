@@ -15,6 +15,18 @@ datasource db {
 }
 
 model Url {
-  urlSlug   String @id @default(cuid())
-  urlTarget String
+  urlSlug      String     @id @default(cuid())
+  urlTarget    String
+  urlTimestamp DateTime
+  urlVisits    UrlVisit[]
+}
+
+model UrlVisit {
+  visitId        String   @id @default(cuid())
+  visitTimestamp DateTime
+  visitIp        String
+  visitReferrer  String
+  visitUserAgent String
+  visitSlug      String
+  visitUrl       Url      @relation(fields: [visitSlug], references: [urlSlug], onDelete: Cascade, onUpdate: Cascade)
 }

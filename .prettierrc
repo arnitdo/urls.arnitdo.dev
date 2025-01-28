@@ -4,7 +4,11 @@
 	"useTabs": true,
 	"singleQuote": false,
 	"arrowParens": "always",
-	"plugins": ["@trivago/prettier-plugin-sort-imports"],
+	"plugins": [
+		"@trivago/prettier-plugin-sort-imports",
+		"prettier-plugin-tailwindcss",
+		"prettier-plugin-organize-attributes"
+	],
 	"importOrder": [
 		"<THIRD_PARTY_MODULES>",
 		"^@/controllers/(.*)$",
