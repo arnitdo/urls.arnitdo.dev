@@ -4,6 +4,8 @@ import { VT323 } from "next/font/google"
 
 const vt323 = VT323({
 	weight: "400",
+	preload: true,
+	subsets: ["latin"],
 })
 
 export const metadata: Metadata = {
