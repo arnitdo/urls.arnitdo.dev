@@ -26,4 +26,4 @@ export default function RootLayout({
 	)
 }
 
-export const revalidate = false
+export const revalidate = 0
