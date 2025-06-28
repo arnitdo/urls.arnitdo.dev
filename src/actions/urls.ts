@@ -4,23 +4,30 @@ import type { Url } from "@prisma/client"
 
 import db from "@/util/db"
 
-type CreateUrlArgs = Partial<Pick<Url, "urlSlug">> & Pick<Url, "urlTarget">
+export type CreateUrlArgs = Partial<Pick<Url, "urlSlug">> &
+	Pick<Url, "urlTarget" | "urlUsername" | "urlPassword">
 
 export async function createUrl(createArgs: CreateUrlArgs) {
-	return db.url.upsert({
+	const urlObject = await db.url.upsert({
 		where: {
 			urlSlug: createArgs.urlSlug,
 		},
 		update: {
 			urlTarget: createArgs.urlTarget,
 			urlTimestamp: new Date(),
+			urlUsername: createArgs.urlUsername || null,
+			urlPassword: createArgs.urlPassword || null,
 		},
 		create: {
-			urlTarget: createArgs.urlTarget,
 			urlSlug: createArgs.urlSlug,
+			urlTarget: createArgs.urlTarget,
 			urlTimestamp: new Date(),
+			urlUsername: createArgs.urlUsername || null,
+			urlPassword: createArgs.urlPassword || null,
 		},
 	})
+
+	return urlObject
 }
 
 type GetUrlCountArgs = {

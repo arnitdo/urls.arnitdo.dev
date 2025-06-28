@@ -15,18 +15,34 @@ datasource db {
 }
 
 model Url {
-  urlSlug      String     @id @default(cuid())
+  urlSlug      String     @id @default(cuid(2))
   urlTarget    String
   urlTimestamp DateTime
   urlVisits    UrlVisit[]
+  urlUsername  String?
+  urlPassword  String?
+  // urlQueryConfig UrlQueryConfig[]
 }
 
+//
+// model UrlQueryConfig {
+//   configKey      String
+//   configRequired Boolean @default(false)
+//   configValue    String?
+//
+//   configUrlSlug String
+//   configUrl     Url    @relation(fields: [configUrlSlug], references: [urlSlug], onDelete: Cascade, onUpdate: Cascade)
+//
+//   @@id(name: "configId", fields: [configUrlSlug, configKey])
+// }
+
 model UrlVisit {
-  visitId        String   @id @default(cuid())
+  visitId        String   @id @default(cuid(2))
   visitTimestamp DateTime
   visitIp        String
   visitReferrer  String
   visitUserAgent String
   visitSlug      String
+  visitAuth      String?
   visitUrl       Url      @relation(fields: [visitSlug], references: [urlSlug], onDelete: Cascade, onUpdate: Cascade)
 }
